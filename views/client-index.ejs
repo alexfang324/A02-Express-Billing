@@ -1,5 +1,5 @@
 <h1>Clients</h1>
-<button onClick="window.location.href='./clients/create'">
+<button class="btn btn-primary" onClick="window.location.href='./clients/create'">
     Create Clients
 </button>
 <ul id="client-list">
@@ -9,10 +9,10 @@
                 <%= clients[i].firstName%>
             </a>
             <div>
-                <button onClick="window.location.href='./clients/<%= clients[i]._id%>/edit'">
+                <button class="btn btn-success" onClick="window.location.href='./clients/<%= clients[i]._id%>/edit'">
                     edit
                 </button>
-                <button onClick="window.location.href='./clients/<%= clients[i]._id%>/delete'">
+                <button class="btn btn-danger" onClick="window.location.href='./clients/<%= clients[i]._id%>/delete'">
                     delete
                 </button>
             </div>

@@ -1,23 +1,21 @@
 <h1>Products</h1>
-<button onClick="window.location.href='./products/create'">
+<button class="btn btn-primary" onClick="window.location.href='./products/create'">
   Create Product
 </button>
 <ul id="product-list">
-  <% for (let i = 0; i < products.length; i++) { %>
-  <li>
-    <a href="./products/<%= products[i]._id%>"><%= products[i].name%></a>
-    <div>
-      <button
-        onClick="window.location.href='./products/<%= products[i]._id%>/edit'"
-      >
-        edit
-      </button>
-      <button
-        onClick="window.location.href='./products/<%= products[i]._id%>/delete'"
-      >
-        delete
-      </button>
-    </div>
-  </li>
-  <% } %>
+  <% for (let i=0; i < products.length; i++) { %>
+    <li>
+      <a href="./products/<%= products[i]._id%>">
+        <%= products[i].name%>
+      </a>
+      <div>
+        <button class="btn btn-success" onClick="window.location.href='./products/<%= products[i]._id%>/edit'">
+          edit
+        </button>
+        <button class="btn btn-danger" onClick="window.location.href='./products/<%= products[i]._id%>/delete'">
+          delete
+        </button>
+      </div>
+    </li>
+    <% } %>
 </ul>
