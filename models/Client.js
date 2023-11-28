@@ -10,12 +10,4 @@ const clientSchema = mongoose.Schema(
 
 const Client = mongoose.model("Client", clientSchema);
 
-//Insert initial data into collection
-Client.insertMany([
-  { firstName: "Alex", lastName: "Fang" },
-  { firstName: "Ayesha", lastName: "Ayesha" },
-  { firstName: "Eunice", lastName: "Eunice" },
-  { firstName: "Samenah", lastName: "Samenah" },
-]);
-
 module.exports = Client;
