@@ -14,7 +14,8 @@ const app = express();
 const port = process.env.PORT || 3003;
 
 //set up database
-const uri = process.env.MONGO_CONNECTION_STRING;
+// const uri = process.env.MONGO_CONNECTION_STRING;
+const uri = "mongodb+srv://admin:Alex-Ayesha-Eunice-Samaneh@billing.oa900xm.mongodb.net/billing?retryWrites=true&w=majority";
 mongoose.connect(uri);
 const db = mongoose.connection;
 

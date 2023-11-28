@@ -1,0 +1,15 @@
+<form action="/clients/create" method="POST">   
+    <label for="fname">First Name:</label>
+    <input id="fname" name="fname" type="text" value=<%= clientA.firstName ? clientA.firstName : '' %> >
+    <label for="lname">Last Name:</label>
+    <input id="lname" name="lname" type="text" value=<%= clientA.lastName ? clientA.lastName : '' %> >
+    <label for="email">Email:</label>
+    <input id="email" name="email" type="text" value=<%= clientA.email ? clientA.email : '' %> >
+    
+    <!-- <button type="submit" value="Submit">Cancel</button> -->
+
+    <button type="submit" value="Submit" onClick="window.location.href='./clients' ">Submit </button>
+    <!-- onClick="window.location.href='./clients/create' " -->
+</form>
+<%= errorMessage %>
+
