@@ -1,0 +1,77 @@
+body {
+  min-height: 100vh;
+  width: 80vw;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* Header Stylings */
+header > nav > ul {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+}
+
+header > nav > ul > li {
+  width: 100px;
+}
+
+header > nav > ul > li > a {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Footer Stylings */
+footer {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0vh;
+}
+
+/* Home Page Stylings */
+
+/* Product Page Stylings */
+#product-list {
+  list-style-type: none;
+  padding: 20px 0px;
+  margin: auto;
+}
+
+#product-list > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+}
+
+#product-list > li > a {
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Client Page Stylings */
+#client-list {
+  list-style-type: none;
+  padding: 20px 0px;
+  margin: auto;
+}
+
+#client-list > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+}
+
+#client-list > li > a {
+  text-decoration: none;
+  font-size: 20px;
+}

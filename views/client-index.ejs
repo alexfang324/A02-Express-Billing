@@ -1,0 +1,21 @@
+<h1>Clients</h1>
+<button onClick="window.location.href='./clients/create'">
+    Create Clients
+</button>
+<ul id="client-list">
+    <% for (let i=0; i < clients.length; i++) { %>
+        <li>
+            <a href="./clients/<%= clients[i]._id%>">
+                <%= clients[i].firstName%>
+            </a>
+            <div>
+                <button onClick="window.location.href='./clients/<%= clients[i]._id%>/edit'">
+                    edit
+                </button>
+                <button onClick="window.location.href='./clients/<%= clients[i]._id%>/delete'">
+                    delete
+                </button>
+            </div>
+        </li>
+        <% } %>
+</ul>
