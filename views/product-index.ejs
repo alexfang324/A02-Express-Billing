@@ -4,22 +4,18 @@
 </button>
 <ul id="product-list">
   <% for (let i=0; i < products.length; i++) { %>
-  <li>
-    <a href="./products/<%= products[i]._id%>"> <%= products[i].name%> </a>
-    <div>
-      <button
-        class="btn btn-success"
-        onClick="window.location.href='/products/<%= products[i]._id%>/edit'"
-      >
-        edit
-      </button>
-      <button
-        class="btn btn-danger"
-        onClick="window.location.href='/products/<%= products[i]._id%>/delete'"
-      >
-        delete
-      </button>
-    </div>
-  </li>
-  <% } %>
+    <li>
+      <a href="/products/<%= products[i]._id%>">
+        <%= products[i].name%>
+      </a>
+      <div>
+        <button class="btn btn-success" onClick="window.location.href='/products/edit/<%= products[i]._id%>'">
+          edit
+        </button>
+        <button class="btn btn-danger" onClick="window.location.href='/products/delete/<%= products[i]._id%>'">
+          delete
+        </button>
+      </div>
+    </li>
+    <% } %>
 </ul>

@@ -1,0 +1,17 @@
+<h3>
+  <%id?'Edit':'New' %> Product
+</h3>
+<form id="product-create-form" action="/products/edit" method="POST">
+  <label for="name">Name:</label>
+  <input id="name" name="name" type="text" value=<%=product.name ? product.name : '' %> >
+  <label for="description">Description:</label>
+  <input id="description" name="description" type="description" value=<%=product.description ? product.description : ''
+    %> >
+  <label for="price">Price:</label>
+  <input id="price" name="price" type="number" value=<%=product.price ? product.price : '' %> >
+  <input id="id" name='"id"' type="string" hidden />
+  <button type="submit" value="Submit">Submit</button>
+</form>
+<p class="error-message">
+  <%= errorMessage %>
+</p>
