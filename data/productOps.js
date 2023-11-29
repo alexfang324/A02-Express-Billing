@@ -1,4 +1,4 @@
-const Product = require("../models/Product.js");
+const Product = require('../models/Product.js');
 
 class ProductOps {
   ProductOps() {}
@@ -11,6 +11,34 @@ class ProductOps {
   async getProductById(id) {
     const product = await Product.findById(id);
     return product;
+  }
+
+  async createProduct(productObj) {
+    try {
+      //if form data is invalid, return response with error
+      const error = await productObj.validateSync();
+      if (error) {
+        const response = {
+          obj: productObj,
+          errorMsg: error.message
+        };
+        return response;
+      }
+
+      // Model is valid, save it to db
+      const result = await productObj.save();
+      const response = {
+        obj: result,
+        errorMsg: ''
+      };
+      return response;
+    } catch (error) {
+      const response = {
+        obj: productObj,
+        errorMsg: error.message
+      };
+      return response;
+    }
   }
 }
 
