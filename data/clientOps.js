@@ -8,29 +8,22 @@ class ClientOps {
     return clients;
   }
 
-  async updateClientById(id, fName, lName) {
+  async updateClientById(id, fName, lName,email) {
     console.log(`updating profile by id ${id}`);
     const clientObj = await Client.findById(id);
     
     clientObj.firstName = fName;
     clientObj.lastName = lName;
-    // client.email = email;
-
-    // let result = await client.save();
-    // console.log("updated client: ", result);
-    // return {
-    //   obj: result,
-    //   errorMsg: "",
-    // };
-
+    clientObj.email = email;
     try {
       const error = await clientObj.validateSync();
+      console.log("eeee",error)
       if (error) {
         const response = {
           obj: clientObj,
           errorMsg: error.message,
         };
-        return response; // Exit if the model is invalid
+        return response; 
       }
 
       // Model is valid, so save it
@@ -49,18 +42,20 @@ class ClientOps {
     }
   }
 
-
   async createClient(clientObj) {
-    try {
+    try { 
+      console.log('clientobj', clientObj);
       const error = await clientObj.validateSync();
-      if (error) {
+      console.log(error,"ceate errrr")
+      console.log()
+      if (error!="") {
         const response = {
           obj: clientObj,
           errorMsg: error.message,
         };
         return response; // Exit if the model is invalid
       }
-
+      console.log('Went here')
       // Model is valid, so save it
       const result = await clientObj.save();
       const response = {
@@ -89,8 +84,6 @@ class ClientOps {
     let client = await Client.findById(id);
     return client;
   }
-
-
 
 }
 

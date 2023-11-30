@@ -75,3 +75,17 @@ footer {
   text-decoration: none;
   font-size: 20px;
 }
+
+#submitButton {
+
+  margin-top: 10px; 
+}
+
+#email{
+  margin-right: 37px;
+
+}
+#cancelButton{
+  display: inline;
+
+}

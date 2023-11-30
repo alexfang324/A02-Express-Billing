@@ -1,4 +1,4 @@
-const ClientOps = require("../data/ClientOps");
+const ClientOps = require("../data/clientOps");
 const Client =require("../models/Client")
 
 const _clientOps = new ClientOps();
@@ -27,11 +27,9 @@ exports.EditClient = async function (request, response) {
   const clientId = request.body.client_id;
   const fName = request.body.firstName;
   const lName = request.body.lastName;
-  // const email = request.body.email;
-
-
+  const email = request.body.email;
   // send these to profileOps to update and save the document
-  let responseObj = await _clientOps.updateClientById(clientId, fName,lName);
+  let responseObj = await _clientOps.updateClientById(clientId, fName,lName,email);
 
   // if no errors, save was successful
   if (responseObj.errorMsg == "") {
@@ -39,7 +37,6 @@ exports.EditClient = async function (request, response) {
     response.render("client-index", {
       title: "Clients",
       clients: clients,
-      
     });
   }
   // There are errors. Show form the again with an error message.
@@ -67,32 +64,23 @@ exports.Create = async function (request, response) {
 
 // Handle profile form Post request
 exports.CreateClient = async function (request, response) {
-
-
-  // instantiate a new Profile Object populated with form data
   let tempClientObj = new Client({
     firstName: request.body.firstName,
     lastName: request.body.lastName,
-    // email: request.body.email,
+    email: request.body.email,
 
   });
 
-  //
   let responseObj = await _clientOps.createClient(tempClientObj);
-
-  // if no errors, save was successful
+  console.log("error",responseObj.errorMsg)
   if (responseObj.errorMsg == "") {
     let clients = await _clientOps.getAllClients();
     console.log(responseObj.obj);
     response.render("client-index", {
       title: "Clients",
-      // profiles: profiles,
-      // profileId: responseObj.obj._id.valueOf(),
-      // layout: "./layouts/sidebar",
       clients : clients
     });
   }
-  // There are errors. Show form the again with an error message.
   else {
     console.log("An error occured. Client not created.");
     response.render("client-form", {
@@ -144,13 +132,4 @@ exports.Detail = async function (request, response) {
   }
 };
 
-// exports.Edit = async function (request, response) {
-//   const clientId = request.params.id;
-//   let clientObj = await _clientOps.getClientById(clientId);
-//   response.render("client-form", {
-//     title: "Edit Client",
-//     errorMessage: "",
-//     client_id: clientId,
-//     clientA: clientObj,
-//   });
-// };
+
