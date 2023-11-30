@@ -28,7 +28,13 @@
     value="<%=product.unit_cost ?
   product.unit_cost : '' %>"
   />
-  <input id="productId" name="productId" type="string" hidden />
+  <input
+    id="productId"
+    name="productId"
+    type="string"
+    value="<%= productId %>"
+    hidden
+  />
   <button class="btn btn-success" type="submit" value="Submit">Submit</button>
 </form>
 <button class="btn btn-primary" onClick="window.location.href='/products'">

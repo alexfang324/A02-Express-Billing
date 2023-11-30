@@ -75,12 +75,12 @@ exports.Edit = async function (req, res) {
 };
 
 exports.EditProduct = async function (req, res) {
-  const productId = req.params.id;
-  let formObj = new Product({
+  const productId = req.body.productId;
+  const formObj = {
     name: req.body.name,
     code: req.body.code,
     unit_cost: req.body.unit_cost
-  });
+  };
   //try to create a product object and add to database
   response = await _productOps.updateProductById(productId, formObj);
 
