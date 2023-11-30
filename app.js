@@ -1,5 +1,6 @@
 "use strict";
 const express = require("express");
+const bodyParser = require('body-parser');
 const path = require("path");
 const indexRouter = require("./routers/indexRouter");
 const productRouter = require("./routers/productRouter");
@@ -21,7 +22,7 @@ const db = mongoose.connection;
 
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
+app.use(bodyParser());
 // tell Express where to find our templates (views) and set the view engine to ejs
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

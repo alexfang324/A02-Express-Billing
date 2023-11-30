@@ -1,15 +1,32 @@
-<form action="/clients/create" method="POST">   
+<!-- <form action="/clients/create" method="POST">   
     <label for="fname">First Name:</label>
     <input id="fname" name="fname" type="text" value=<%= clientA.firstName ? clientA.firstName : '' %> >
     <label for="lname">Last Name:</label>
     <input id="lname" name="lname" type="text" value=<%= clientA.lastName ? clientA.lastName : '' %> >
     <label for="email">Email:</label>
-    <input id="email" name="email" type="text" value=<%= clientA.email ? clientA.email : '' %> >
+    <input id="email" name="email" type="text" value=<%= clientA.email ? clientA.email : '' %> > -->
     
     <!-- <button type="submit" value="Submit">Cancel</button> -->
 
-    <button type="submit" value="Submit" onClick="window.location.href='./clients' ">Submit </button>
+    <!-- <button type="submit" value="Submit">Submit </button> -->
     <!-- onClick="window.location.href='./clients/create' " -->
+<!-- </form>
+<%= errorMessage %> -->
+
+
+<h3><%= client_id ? "Edit" : "New" %> Client</h3>
+<!-- <form action="/clients" method="POST">    -->
+
+<form action="/clients/edit<%= client_id ? "/"+client_id : "" %>" method="POST">   
+    <input type="hidden" id="client_id" name="client_id" value="<%= client_id %>">
+    <label for="firstName">First Name:</label>
+    <input id="firstName" name="firstName" type="text" value=<%= clientA.firstName ? clientA.firstName : '' %> >
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" name="lastName" type="text" value=<%= clientA.lastName ? clientA.lastName : '' %> >
+    <!-- <label for="email">Email:</label>
+    <input id="email" name="email" type="text" value=<%= clientA.email ? clientA.email : '' %> >
+  -->
+    <button type="submit" value="Submit">Submit</button>
 </form>
 <%= errorMessage %>
 
