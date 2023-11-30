@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const productSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    description: { type: 'string' },
-    price: { type: Number, required: true }
+    code: { type: String },
+    unit_cost: { type: Number, required: true }
   },
   { collection: 'products' }
 );
