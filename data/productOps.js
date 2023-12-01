@@ -4,7 +4,7 @@ class ProductOps {
   ProductOps() {}
 
   async getAllProducts() {
-    const products = await Product.find({});
+    const products = await Product.find({}).sort({ name: 1 });
     return products;
   }
 

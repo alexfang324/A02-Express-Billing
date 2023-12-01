@@ -4,12 +4,11 @@ class ClientOps {
   ClientOps() {}
 
   async getAllClients() {
-    const clients = await Client.find({});
+    const clients = await Client.find({}).sort({ name: 1 });
     return clients;
   }
 
   async updateClientById(id, name, code,company,email) {
-    console.log(`updating profile by id ${id}`);
     const clientObj = await Client.findById(id);
     
     clientObj.name = name;
@@ -44,7 +43,6 @@ class ClientOps {
 
   async createClient(clientObj) {
     try { 
-      console.log('clientobj', clientObj);
       const error = await clientObj.validateSync();
       if (error=="") {
         const response = {
@@ -70,17 +68,22 @@ class ClientOps {
   }
 
   async deleteClientById(id) {
-    console.log(`deleting client by id ${id}`);
     let result = await Client.findByIdAndDelete(id);
-    console.log(result);
     return result;
   }
 
   async getClientById(id) {
-    console.log(`getting client by id ${id}`);
     let client = await Client.findById(id);
     return client;
   }
+
+  async getFilteredClients(filterText) {
+    let result = await Client.find({
+      name: { $regex: `.*${filterText}.*`, $options: 'i' }
+    });
+    return result;
+  }
+
 
 }
 

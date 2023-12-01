@@ -8,12 +8,30 @@ exports.Index = async function (req, res) {
   res.render("client-index", {
     title: "Clients",
     clients,
+    filterText:'',
+    errorMessage: ''
+  });
+};
+
+exports.Index = async function (req, res) {
+  const filterText = req.body.filterText ?? '';
+  let clients;
+  if (filterText) {
+    clients = await _clientOps.getFilteredClients(filterText);
+  } else {
+    clients = await _clientOps.getAllClients();
+  }
+
+  res.render('client-index', {
+    title: 'Clients',
+    clients,
+    filterText,
+    errorMessage: ''
   });
 };
 
 exports.Edit = async function (request, response) {
   const clientId = request.params.id;
-  console.log(clientId,"hi");
   let clientObj = await _clientOps.getClientById(clientId);
   response.render("client-form", {
     title: "Edit Client",
@@ -38,12 +56,12 @@ exports.EditClient = async function (request, response) {
     response.render("client-index", {
       title: "Clients",
       clients: clients,
+      filterText:'',
+      errorMessage: ''
     });
   }
   // There are errors. Show form the again with an error message.
   else {
-    console.log(clientId)
-    console.log("An error occured. Item not edited.");
     response.render("client-form", {
       title: "Edit Client",
       clientA: responseObj.obj,
@@ -74,17 +92,16 @@ exports.CreateClient = async function (request, response) {
   });
 
   let responseObj = await _clientOps.createClient(tempClientObj);
-  console.log("error",responseObj.errorMsg)
   if (responseObj.errorMsg == "") {
     let clients = await _clientOps.getAllClients();
-    console.log(responseObj.obj);
     response.render("client-index", {
       title: "Clients",
-      clients : clients
+      clients : clients,
+      filterText:'',
+      errorMessage: ''
     });
   }
   else {
-    console.log("An error occured. Client not created.");
     response.render("client-form", {
       title: "Create Profile",
       clientA: responseObj.obj,
@@ -96,7 +113,6 @@ exports.CreateClient = async function (request, response) {
 
 exports.DeleteClientById = async function (request, response) {
   const clientId = request.params.id;
-  console.log(`deleting single profile by id ${clientId}`);
   let deletedClient = await _clientOps.deleteClientById(clientId);
   let clients = await _clientOps.getAllClients();
 
@@ -104,6 +120,8 @@ exports.DeleteClientById = async function (request, response) {
     response.render("client-index", {
       title: "Clients",
       clients: clients,
+      filterText:'',
+      errorMessage: ''
     });
   } else {
     response.render("client-index", {
@@ -116,7 +134,6 @@ exports.DeleteClientById = async function (request, response) {
 
 exports.Detail = async function (request, response) {
   const clientId = request.params.id;
-  console.log(`loading single profile by id ${clientId}`);
   let client = await _clientOps.getClientById(clientId);
   let clients = await _clientOps.getAllClients();
   if (client) {

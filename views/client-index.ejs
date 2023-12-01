@@ -1,4 +1,15 @@
 <h1>Clients</h1>
+<p class="error-message"><%= errorMessage %></p>
+<form id="index-filter-form" action="/clients" method="POST">
+  <label for="filterText">Filter Text:</label>
+  <input
+    id="filter-text"
+    name="filterText"
+    type="text"
+    value="<%=filterText?? '' %>"
+  />
+  <button class="btn btn-success" type="submit" value="Submit">Filter</button>
+</form>
 <button class="btn btn-primary" onClick="window.location.href='/clients/edit'">
     Create Clients
 </button>
@@ -9,7 +20,6 @@
                 <%=clients[i].name%>%>
             </a>
             <span></span>
-            <!-- <p><%= clients[i].lastName%></p> -->
             <div>
                 <button class="btn btn-success" onClick="window.location.href='/clients/edit/<%= clients[i]._id%>'">
                     edit
