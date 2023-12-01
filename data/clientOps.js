@@ -48,7 +48,7 @@ class ClientOps {
       const error = await clientObj.validateSync();
       console.log(error,"ceate errrr")
       console.log()
-      if (error!="") {
+      if (error=="") {
         const response = {
           obj: clientObj,
           errorMsg: error.message,
