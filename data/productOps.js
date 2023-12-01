@@ -59,6 +59,14 @@ class ProductOps {
     let result = await Product.findByIdAndDelete(id);
     return result;
   }
+
+  //use a regular expression with case insensitive option to filter the product list
+  async getFilteredProducts(filterText) {
+    let result = await Product.find({
+      name: { $regex: `.*${filterText}.*`, $options: 'i' }
+    });
+    return result;
+  }
 }
 
 module.exports = ProductOps;

@@ -4,10 +4,18 @@ const Product = require('../models/Product');
 const _productOps = new ProductOps();
 
 exports.Index = async function (req, res) {
-  let products = await _productOps.getAllProducts();
+  const filterText = req.body.filterText ?? '';
+  let products;
+  if (filterText) {
+    products = await _productOps.getFilteredProducts(filterText);
+  } else {
+    products = await _productOps.getAllProducts();
+  }
+
   res.render('product-index', {
     title: 'Products',
     products,
+    filterText,
     errorMessage: ''
   });
 };
@@ -49,6 +57,7 @@ exports.CreateProduct = async function (req, res) {
     res.render('product-index', {
       title: 'Products',
       products,
+      filterText: '',
       errorMessage: ''
     });
   }
@@ -90,6 +99,7 @@ exports.EditProduct = async function (req, res) {
     res.render('product-index', {
       title: 'Products',
       products,
+      filterText: '',
       errorMessage: ''
     });
   }
@@ -113,12 +123,14 @@ exports.DeleteProductById = async function (req, res) {
     res.render('product-index', {
       title: 'Products',
       products,
+      filterText: '',
       errorMessage: ''
     });
   } else {
     res.render('product-index', {
       title: 'Products',
       products,
+      filterText: '',
       errorMessage: 'Error.  Unable to Delete'
     });
   }
