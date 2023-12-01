@@ -25,11 +25,12 @@ exports.Edit = async function (request, response) {
 
 exports.EditClient = async function (request, response) {
   const clientId = request.body.client_id;
-  const fName = request.body.firstName;
-  const lName = request.body.lastName;
+  const name = request.body.name;
+  const code = request.body.code;
+  const company = request.body.company;
   const email = request.body.email;
   // send these to profileOps to update and save the document
-  let responseObj = await _clientOps.updateClientById(clientId, fName,lName,email);
+  let responseObj = await _clientOps.updateClientById(clientId, name,code,company,email);
 
   // if no errors, save was successful
   if (responseObj.errorMsg == "") {
@@ -65,8 +66,9 @@ exports.Create = async function (request, response) {
 // Handle profile form Post request
 exports.CreateClient = async function (request, response) {
   let tempClientObj = new Client({
-    firstName: request.body.firstName,
-    lastName: request.body.lastName,
+    name: request.body.name,
+    code: request.body.code,
+    company: request.body.company,
     email: request.body.email,
 
   });
