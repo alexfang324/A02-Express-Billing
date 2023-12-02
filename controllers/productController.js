@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 const _productOps = new ProductOps();
 
 exports.Index = async function (req, res) {
-  const filterText = req.body.filterText ?? '';
+  const filterText = req.query.filterText ?? '';
   let products;
   if (filterText) {
     products = await _productOps.getFilteredProducts(filterText);

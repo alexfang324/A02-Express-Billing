@@ -1,3 +1,4 @@
+<a href="/products">Return to Products</a>
 <h3><%= productId?'Edit':'New' %> Product</h3>
 <form
   id="product-create-form"
@@ -37,7 +38,4 @@
   />
   <button class="btn btn-success" type="submit" value="Submit">Submit</button>
 </form>
-<button class="btn btn-primary" onClick="window.location.href='/products'">
-  Back to list
-</button>
 <p class="error-message"><%= errorMessage %></p>
