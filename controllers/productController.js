@@ -1,5 +1,5 @@
 const ProductOps = require('../data/ProductOps');
-const Product = require('../models/Product');
+const { Product } = require('../models/Product');
 
 const _productOps = new ProductOps();
 

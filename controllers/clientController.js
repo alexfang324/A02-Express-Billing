@@ -1,5 +1,5 @@
 const ClientOps = require('../data/ClientOps');
-const Client = require('../models/Client');
+const { Client } = require('../models/Client');
 
 const _clientOps = new ClientOps();
 

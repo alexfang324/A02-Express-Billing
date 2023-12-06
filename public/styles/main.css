@@ -94,15 +94,29 @@ footer {
 }
 
 #submitButton {
-
-  margin-top: 10px; 
+  margin-top: 10px;
 }
 
-#email{
+#email {
   margin-right: 37px;
-
 }
-#cancelButton{
+#cancelButton {
   display: inline;
+}
 
+/* Invoice Form Stylings */
+#invoice-form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+#invoice-form > input,
+#invoice-form > select {
+  margin-bottom: 10px;
+}
+
+.display-flex {
+  display: flex;
+  gap: 10px;
 }

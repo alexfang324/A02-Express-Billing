@@ -1,4 +1,4 @@
-const Client = require("../models/Client.js");
+const { Client } = require('../models/Client.js');
 
 class ClientOps {
   ClientOps() {}
@@ -8,9 +8,9 @@ class ClientOps {
     return clients;
   }
 
-  async updateClientById(id, name, code,company,email) {
+  async updateClientById(id, name, code, company, email) {
     const clientObj = await Client.findById(id);
-    
+
     clientObj.name = name;
     clientObj.code = code;
     clientObj.company = company;
@@ -20,34 +20,34 @@ class ClientOps {
       if (error) {
         const response = {
           obj: clientObj,
-          errorMsg: error.message,
+          errorMsg: error.message
         };
-        return response; 
+        return response;
       }
 
       // Model is valid, so save it
       const result = await clientObj.save();
       const response = {
         obj: result,
-        errorMsg: "",
+        errorMsg: ''
       };
       return response;
     } catch (error) {
       const response = {
         obj: clientObj,
-        errorMsg: error.message,
+        errorMsg: error.message
       };
       return response;
     }
   }
 
   async createClient(clientObj) {
-    try { 
+    try {
       const error = await clientObj.validateSync();
-      if (error=="") {
+      if (error == '') {
         const response = {
           obj: clientObj,
-          errorMsg: error.message,
+          errorMsg: error.message
         };
         return response; // Exit if the model is invalid
       }
@@ -55,13 +55,13 @@ class ClientOps {
       const result = await clientObj.save();
       const response = {
         obj: result,
-        errorMsg: "",
+        errorMsg: ''
       };
       return response;
     } catch (error) {
       const response = {
         obj: clientObj,
-        errorMsg: error.message,
+        errorMsg: error.message
       };
       return response;
     }
@@ -83,8 +83,6 @@ class ClientOps {
     });
     return result;
   }
-
-
 }
 
 module.exports = ClientOps;
