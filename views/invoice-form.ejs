@@ -18,14 +18,14 @@
     id="invoice-date"
     name="invoiceDate"
     type="date"
-    value="<%=invoice.invoiceDate ? invoice.invoiceDate: '' %>"
+    value="<%=invoice.invoiceDate ? invoice.invoiceDate.toISOString().split('T')[0]: '' %>"
   />
   <label for="dueDate">Due Date:</label>
   <input
     id="due-date"
     name="dueDate"
     type="date"
-    value="<%=invoice.dueDate ? invoice.dueDate.toISOString() : '' %>"
+    value="<%=invoice.dueDate ? invoice.dueDate.toISOString().split('T')[0] : '' %>"
   />
   <label for="clientId">Client:</label>
   <select name="clientId">
@@ -38,9 +38,9 @@
   </select>
 
   <% for (let i=0; i < invoice.products.length; i++) { %>
-      <label for="<%= invoice['products'][i]['product']%>">Product:</label>
+      <label for="productId">Product:</label>
       <div class="display-flex">
-        <select name="<%=invoice['products'][i]['product']%>">
+        <select name="productId[]" id="productId">
           <option value="">Select a product</option>
           <% for (let j=0; j < productList.length; j++) { %>
           <option
@@ -51,10 +51,10 @@
           </option>
           <%} %>
         </select>
-        <label for="<%=invoice['products'][i]['quantity']%>" hidden></label>
+        <label for="productQuantity" hidden></label>
         <input
-          id="quantity"
-          name="<%=invoice['products'][i]['quantity']%>"
+          id="productQuantity"
+          name="quantity[]"
           type="number"
           placeholder="Enter quantity"
           value="<%= invoice['products'][i] && invoice['products'][i]['quantity']%>"

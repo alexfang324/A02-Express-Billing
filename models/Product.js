@@ -4,7 +4,11 @@ const productSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     code: { type: String },
-    unit_cost: { type: Number, required: true }
+    unit_cost: {
+      type: Number,
+      required: true,
+      min: [0, "cost can't be negative"]
+    }
   },
   { collection: 'products' }
 );

@@ -1,4 +1,6 @@
-const Invoice = require('../models/Invoice.js');
+const { Invoice } = require('../models/Invoice.js');
+const { ProductData } = require('../models/ProductData');
+const ProductOps = require('../data/ProductOps');
 
 class InvoiceOps {
   InvoiceOps() {}
@@ -45,9 +47,57 @@ class InvoiceOps {
     }
   }
 
+  async updateInvoiceById(id, formData) {
+    const invoice = await Invoice.findById(id);
+    for (const key in formData) {
+      invoice[key] = formData[key];
+    }
+
+    //validate object before saving to database
+    const error = await invoice.validateSync();
+    if (error) {
+      const response = {
+        obj: invoice,
+        errorMsg: error.message
+      };
+      return response;
+    }
+    //validation passed, save to db
+    const result = await invoice.save();
+    const response = {
+      obj: result,
+      errorMsg: ''
+    };
+    return response;
+  }
+
   async deleteInvoiceById(id) {
     let result = await Invoice.findByIdAndDelete(id);
     return result;
+  }
+
+  async constructInvoiceProducts(productIds, quantities) {
+    const _productOps = new ProductOps();
+
+    //build the products list needed for creating a new invoice
+    let products = [];
+    //if user enter a number of products, then the form variables will be a list else they
+    //are single values and we can't loops through them
+    if (Array.isArray(productIds)) {
+      for (let i = 0; i < productIds.length; i++) {
+        const product = await _productOps.getProductById(productIds[i]);
+        const productData = new ProductData({
+          product,
+          quantity: quantities[i]
+        });
+        products.push(productData);
+      }
+    } else {
+      const product = await _productOps.getProductById(productIds);
+      const productData = new ProductData({ product, quantity: quantities });
+      products = [productData];
+    }
+    return products;
   }
 }
 

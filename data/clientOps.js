@@ -24,6 +24,16 @@ class ClientOps {
     clientObj.code = code;
     clientObj.company = company;
     clientObj.email = email;
+
+    const error = await clientObj.validateSync();
+    if (error == '') {
+      const response = {
+        obj: clientObj,
+        errorMsg: error.message
+      };
+      return response; // Exit if the model is invalid
+    }
+
     try {
       const error = await clientObj.validateSync();
       if (error) {

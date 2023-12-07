@@ -89,10 +89,10 @@ exports.EditProduct = async function (req, res) {
     code: req.body.code,
     unit_cost: req.body.unit_cost
   };
-  //try to create a product object and add to database
+  //try to update a product object and add to database
   response = await _productOps.updateProductById(productId, formObj);
 
-  // if no errors, it was created and save to db successfully
+  // if no errors, it was udpated and save to db successfully
   if (response.errorMsg == '') {
     let products = await _productOps.getAllProducts();
     res.render('product-index', {
@@ -105,7 +105,7 @@ exports.EditProduct = async function (req, res) {
   // There are errors. Show form the again with an error message.
   else {
     res.render('product-form', {
-      title: 'Create Product',
+      title: 'Edit Product',
       product: response.obj,
       productId,
       errorMessage: response.errorMsg
