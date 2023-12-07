@@ -18,47 +18,49 @@
     id="invoice-date"
     name="invoiceDate"
     type="date"
-    value="<%=invoice.invoiceDate ? invoice.invoiceDate : '' %>"
+    value="<%=invoice.invoiceDate ? invoice.invoiceDate: '' %>"
   />
   <label for="dueDate">Due Date:</label>
   <input
     id="due-date"
     name="dueDate"
     type="date"
-    value="<%=invoice.dueDate ? invoice.dueDate.getDate() : '' %>"
+    value="<%=invoice.dueDate ? invoice.dueDate.toISOString() : '' %>"
   />
   <label for="clientId">Client:</label>
   <select name="clientId">
     <option value="">Select a client</option>
-    <% for (let i=0; i < clients.length; i++) { %>
-    <option value="<%=clients[i]._id %>" <%=invoice.invoiceClient && clients[i]._id.equals(invoice.invoiceClient._id) && 'selected' %>
-      > <%= clients[i].name%>
+    <% for (let i=0; i < clientList.length; i++) { %>
+    <option value="<%=clientList[i]._id %>" <%=invoice.invoiceClient && clientList[i]._id.equals(invoice.invoiceClient._id) && 'selected' %>
+      > <%= clientList[i].name%>
     </option>
     <%} %>
   </select>
-  <label for="productId">Product:</label>
-  <div class="display-flex">
-    <select name="productId">
-      <option value="">Select a product</option>
-      <% for (let i=0; i < products.length; i++) { %>
-      <option
-        value="<%=products[i]._id %>"
-        <%= invoice.products && invoice.products[0] && invoice.products[0]._id && products[i]._id.equals(invoice.products[0]._id) && 'selected' %>
-      >
-        <%= products[i].name%>
-      </option>
-      <%} %>
-    </select>
-    <label for="productQuantity" hidden></label>
-    <input
-      id="product-quantity"
-      name="productQuantity"
-      type="number"
-      placeholder="Enter quantity"
-      value="<%= products[0].productQuantity??''%>"
-    />
-  </div>
 
+  <% for (let i=0; i < invoice.products.length; i++) { %>
+      <label for="<%= invoice['products'][i]['product']%>">Product:</label>
+      <div class="display-flex">
+        <select name="<%=invoice['products'][i]['product']%>">
+          <option value="">Select a product</option>
+          <% for (let j=0; j < productList.length; j++) { %>
+          <option
+            value="<%=productList[j]._id %>"
+            <%= invoice.products[i] && invoice.products[i].product && productList[j]._id.equals(invoice.products[i].product._id) && 'selected' %>
+          >
+            <%= productList[j].name%>
+          </option>
+          <%} %>
+        </select>
+        <label for="<%=invoice['products'][i]['quantity']%>" hidden></label>
+        <input
+          id="quantity"
+          name="<%=invoice['products'][i]['quantity']%>"
+          type="number"
+          placeholder="Enter quantity"
+          value="<%= invoice['products'][i] && invoice['products'][i]['quantity']%>"
+        />
+      </div>
+  <%} %>
   <input
     id="invoiceId"
     name="invoiceId"

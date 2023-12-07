@@ -2,7 +2,6 @@ const Invoice = require('../models/Invoice');
 const InvoiceOps = require('../data/InvoiceOps');
 const ClientOps = require('../data/ClientOps');
 const ProductOps = require('../data/ProductOps');
-const { response } = require('express');
 
 const _invoiceOps = new InvoiceOps();
 const _clientOps = new ClientOps();
@@ -29,34 +28,30 @@ exports.Detail = async function (req, res) {
 };
 
 exports.Create = async function (req, res) {
-  const allClients = await _clientOps.getAllClients();
-  const allProducts = await _productOps.getAllProducts();
+  const clientList = await _clientOps.getAllClients();
+  const productList = await _productOps.getAllProducts();
   res.render('invoice-form', {
     title: 'Create Invoice',
     errorMessage: '',
     invoiceId: null,
-    invoice: {},
-    clients: allClients,
-    products: allProducts
+    invoice: { products: [{}, {}] },
+    clientList,
+    productList
   });
 };
 
 exports.CreateInvoice = async function (req, res) {
   const invoiceClient = await _clientOps.getClientById(req.body.clientId);
   const product = await _productOps.getProductById(req.body.productId);
-  const productQuantity = req.body.productQuantity;
-  let products = [];
-  for (let i = 0; i < productQuantity; i++) {
-    products.push({ ...product });
-  }
-  console.log('dueDate: ', req.body.dueDate);
+  console.log('invoice:', req.body);
+  console.log('products: ', req.body.invoice['products']);
   let formObj = new Invoice({
     invoiceId: null,
     invoiceNumber: req.body.invoiceNumber,
     invoiceDate: req.body.invoiceDate,
     dueDate: req.body.dueDate,
     invoiceClient,
-    products
+    products: [product]
   });
 
   const response = await _invoiceOps.createInvoice(formObj);
@@ -73,16 +68,16 @@ exports.CreateInvoice = async function (req, res) {
   // There are errors. Show form the again with an error message.
   else {
     console.log('response dueDate: ', response.obj.dueDate);
-    const allClients = await _clientOps.getAllClients();
-    const allProducts = await _productOps.getAllProducts();
+    const clientList = await _clientOps.getAllClients();
+    const productList = await _productOps.getAllProducts();
 
     res.render('invoice-form', {
       title: 'Create Invoice',
       errorMessage: response.errorMsg,
       invoiceId: null,
       invoice: response.obj,
-      clients: allClients,
-      products: allProducts
+      clientList,
+      productList
     });
   }
 };

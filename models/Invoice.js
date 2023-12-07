@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { productSchema } = require('./Product');
 const { clientSchema } = require('./Client');
+const { invoiceDetailSchema } = require('./InvoiceDetail');
 
 const invoiceSchema = mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const invoiceSchema = mongoose.Schema(
     invoiceDate: { type: Date, default: Date.Now },
     dueDate: { type: Date, required: true },
     invoiceClient: { type: clientSchema, required: true },
-    products: { type: [productSchema], required: true }
+    products: { type: [invoiceDetailSchema], required: true }
   },
   { collection: 'invoices' }
 );
