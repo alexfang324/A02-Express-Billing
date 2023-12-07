@@ -4,10 +4,10 @@ const { clientSchema } = require('./Client');
 
 const invoiceSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
+    invoiceNumber: { type: String, required: true },
     invoiceDate: { type: Date, default: Date.Now },
     dueDate: { type: Date, required: true },
-    client: clientSchema,
+    invoiceClient: { type: clientSchema, required: true },
     products: { type: [productSchema], required: true }
   },
   { collection: 'invoices' }

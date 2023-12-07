@@ -139,7 +139,6 @@ exports.DeleteClientById = async function (request, response) {
 exports.Detail = async function (request, response) {
   const clientId = request.params.id;
   let client = await _clientOps.getClientById(clientId);
-  let clients = await _clientOps.getAllClients();
   if (client) {
     response.render('client-detail', {
       title: 'Clients - ' + client.firstName,

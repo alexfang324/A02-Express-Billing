@@ -8,6 +8,15 @@ class InvoiceOps {
     return invoices;
   }
 
+  async getInvoiceById(id) {
+    if (!id || id === undefined || id === '') {
+      return null;
+    }
+
+    const invoice = await Invoice.findById(id);
+    return invoice;
+  }
+
   async createInvoice(invoiceObj) {
     try {
       //if form data is invalid, return response with error
@@ -34,6 +43,11 @@ class InvoiceOps {
       };
       return response;
     }
+  }
+
+  async deleteInvoiceById(id) {
+    let result = await Invoice.findByIdAndDelete(id);
+    return result;
   }
 }
 

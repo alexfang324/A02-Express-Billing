@@ -25,8 +25,7 @@ exports.Detail = async function (req, res) {
   const productId = req.params.id;
   res.render('product-detail', {
     title: 'Product',
-    product,
-    productId
+    product
   });
 };
 

@@ -13,7 +13,7 @@
 <button class="btn btn-primary" onClick="window.location.href='/clients/edit'">
   Create Clients
 </button>
-<ul id="client-list">
+<ul class="model-item-list">
   <% for (let i=0; i < clients.length; i++) { %>
   <li>
     <a href="/clients/<%= clients[i]._id%>"> <%=clients[i].name%>%> </a>

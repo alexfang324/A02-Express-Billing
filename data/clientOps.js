@@ -8,6 +8,15 @@ class ClientOps {
     return clients;
   }
 
+  async getClientById(id) {
+    if (!id || id === undefined || id === '') {
+      return null;
+    }
+
+    let client = await Client.findById(id);
+    return client;
+  }
+
   async updateClientById(id, name, code, company, email) {
     const clientObj = await Client.findById(id);
 
@@ -70,11 +79,6 @@ class ClientOps {
   async deleteClientById(id) {
     let result = await Client.findByIdAndDelete(id);
     return result;
-  }
-
-  async getClientById(id) {
-    let client = await Client.findById(id);
-    return client;
   }
 
   async getFilteredClients(filterText) {

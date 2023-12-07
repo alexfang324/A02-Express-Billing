@@ -14,10 +14,12 @@
 <button class="btn btn-primary" onClick="window.location.href='/invoices/edit'">
   Create Invoice
 </button>
-<ul id="invoice-list">
+<ul class="model-item-list">
   <% for (let i=0; i < invoices.length; i++) { %>
   <li>
-    <a href="/invoices/<%= invoices[i]._id%>"> <%= invoices[i].name%> </a>
+    <a href="/invoices/<%= invoices[i]._id%>">
+      <%= invoices[i].invoiceNumber%>
+    </a>
     <div>
       <button
         class="btn btn-danger"
