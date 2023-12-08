@@ -1,5 +1,4 @@
 const { Invoice } = require('../models/Invoice.js');
-const { ProductData } = require('../models/ProductData');
 const ProductOps = require('../data/ProductOps');
 
 class InvoiceOps {
@@ -86,16 +85,11 @@ class InvoiceOps {
     if (Array.isArray(productIds)) {
       for (let i = 0; i < productIds.length; i++) {
         const product = await _productOps.getProductById(productIds[i]);
-        const productData = new ProductData({
-          product,
-          quantity: quantities[i]
-        });
-        products.push(productData);
+        products.push(product);
       }
     } else {
       const product = await _productOps.getProductById(productIds);
-      const productData = new ProductData({ product, quantity: quantities });
-      products = [productData];
+      products = [product];
     }
     return products;
   }

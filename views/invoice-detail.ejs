@@ -25,7 +25,7 @@
         <div>
           <h2 class="heading">ITEM</h2>
           <% for (let i=0;i<invoice.products.length;i++) {%>
-            <p><%=invoice.products[i].product.code%>: <%=invoice.products[i].product.name%></p>
+            <p><%=invoice.products[i].code%>: <%=invoice.products[i].name%></p>
           <%}%>
         </div>
       </div>
@@ -33,19 +33,19 @@
         <div class="box wide-box">
           <h2 class="heading">QTY</h2>
           <% for (let i=0;i<invoice.products.length;i++) {%>
-            <p><%=invoice.products[i].quantity%></p>
+            <p><%=invoice.quantities[i]%></p>
           <%}%>
         </div>
         <div class="box wide-box">
           <h2 class="heading">RATE</h2>
           <% for (let i=0;i<invoice.products.length;i++) {%>
-            <p><%=invoice.products[i].product.unit_cost%></p>
+            <p><%=invoice.products[i].unit_cost%></p>
           <%}%>
         </div>
         <div class="box justify-right">
           <h2 class="heading">AMOUNT</h2>
           <% for (let i=0;i<invoice.products.length;i++) {%>
-            <p><%=(invoice.products[i].product.unit_cost*invoice.products[i].quantity).toFixed(2)%></p>
+            <p><%=(invoice.products[i].unit_cost*invoice.quantities[i]).toFixed(2)%></p>
           <%}%>
         </div>
       </div>

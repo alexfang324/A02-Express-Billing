@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { clientSchema } = require('./Client');
-const { productDataSchema } = require('./ProductData');
+const { productSchema } = require('./Product');
 
 const invoiceSchema = mongoose.Schema(
   {
@@ -12,7 +12,8 @@ const invoiceSchema = mongoose.Schema(
       validate: [dateValidator, 'dueDate must be later than the invoice date']
     },
     invoiceClient: { type: clientSchema, required: true },
-    products: { type: [productDataSchema], required: true }
+    products: [{ type: productSchema, required: true }],
+    quantities: [{ type: Number, required: true }]
   },
   { collection: 'invoices' }
 );

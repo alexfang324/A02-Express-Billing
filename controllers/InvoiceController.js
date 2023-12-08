@@ -1,5 +1,4 @@
 const { Invoice } = require('../models/Invoice');
-const { ProductData } = require('../models/ProductData');
 const InvoiceOps = require('../data/InvoiceOps');
 const ClientOps = require('../data/ClientOps');
 const ProductOps = require('../data/ProductOps');
@@ -22,8 +21,8 @@ exports.Index = async function (req, res) {
 exports.Detail = async function (req, res) {
   const invoice = await _invoiceOps.getInvoiceById(req.params.id);
   let invoiceTotal = 0;
-  invoice.products.forEach((item) => {
-    invoiceTotal += item.product.unit_cost * item.quantity;
+  invoice.products.forEach((product, i) => {
+    invoiceTotal += product.unit_cost * invoice.quantities[i];
   });
 
   res.render('invoice-detail', {
@@ -40,7 +39,7 @@ exports.Create = async function (req, res) {
     title: 'Create Invoice',
     errorMessage: '',
     invoiceId: null,
-    invoice: { products: [{}] },
+    invoice: { products: [{}], quantities: [{}] },
     clientList,
     productList
   });
@@ -51,10 +50,7 @@ exports.CreateInvoice = async function (req, res) {
   const productIds = req.body['productId[]'];
   const quantities = req.body['quantity[]'];
 
-  const products = await _invoiceOps.constructInvoiceProducts(
-    productIds,
-    quantities
-  );
+  const products = await _invoiceOps.constructInvoiceProducts(productIds);
 
   let formObj = new Invoice({
     invoiceId: null,
@@ -62,7 +58,8 @@ exports.CreateInvoice = async function (req, res) {
     invoiceDate: req.body.invoiceDate,
     dueDate: req.body.dueDate,
     invoiceClient,
-    products
+    products,
+    quantities
   });
 
   const response = await _invoiceOps.createInvoice(formObj);
@@ -114,10 +111,7 @@ exports.EditInvoice = async function (req, res) {
   const productIds = req.body['productId[]'];
   const quantities = req.body['quantity[]'];
 
-  const products = await _invoiceOps.constructInvoiceProducts(
-    productIds,
-    quantities
-  );
+  const products = await _invoiceOps.constructInvoiceProducts(productIds);
 
   let formObj = {
     invoiceId,
@@ -125,7 +119,8 @@ exports.EditInvoice = async function (req, res) {
     invoiceDate: req.body.invoiceDate,
     dueDate: req.body.dueDate,
     invoiceClient,
-    products
+    products,
+    quantities
   };
 
   //try to update an invoice object and add to database
