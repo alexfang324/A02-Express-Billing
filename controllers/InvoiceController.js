@@ -39,9 +39,10 @@ exports.Create = async function (req, res) {
     title: 'Create Invoice',
     errorMessage: '',
     invoiceId: null,
-    invoice: { products: [{}], quantities: [{}] },
+    invoice: {},
     clientList,
-    productList
+    productList,
+    numProdRows: 1
   });
 };
 
@@ -49,7 +50,6 @@ exports.CreateInvoice = async function (req, res) {
   const invoiceClient = await _clientOps.getClientById(req.body.clientId);
   const productIds = req.body['productId[]'];
   const quantities = req.body['quantity[]'];
-
   const products = await _invoiceOps.constructInvoiceProducts(productIds);
 
   let formObj = new Invoice({
@@ -84,7 +84,8 @@ exports.CreateInvoice = async function (req, res) {
       invoiceId: null,
       invoice: response.obj,
       clientList,
-      productList
+      productList,
+      numProdRows: req.body.numProdRows
     });
   }
 };
@@ -100,7 +101,8 @@ exports.Edit = async function (req, res) {
     invoiceId,
     invoice,
     clientList,
-    productList
+    productList,
+    numProdRows: invoice.products.length
   });
 };
 
@@ -147,7 +149,8 @@ exports.EditInvoice = async function (req, res) {
       invoiceId,
       invoice: response.obj,
       clientList,
-      productList
+      productList,
+      numProdRows: req.body.numProdRows
     });
   }
 };
