@@ -8,7 +8,13 @@ const _clientOps = new ClientOps();
 const _productOps = new ProductOps();
 
 exports.Index = async function (req, res) {
-  const invoices = await _invoiceOps.getAllInvoices();
+  const filterText = req.query.filterText ?? '';
+  let invoices;
+  if (filterText) {
+    invoices = await _invoiceOps.getFilteredInvoices(filterText);
+  } else {
+    invoices = await _invoiceOps.getAllInvoices();
+  }
 
   res.render('invoice-index', {
     title: 'Invoices',

@@ -93,6 +93,13 @@ class InvoiceOps {
     }
     return products;
   }
+
+  async getFilteredInvoices(filterText) {
+    let result = await Invoice.find({
+      $text: { $search: filterText }
+    });
+    return result;
+  }
 }
 
 module.exports = InvoiceOps;
