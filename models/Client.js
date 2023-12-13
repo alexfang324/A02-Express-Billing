@@ -1,16 +1,23 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const clientSchema = mongoose.Schema(
   {
-    // clientId : {type : Number, required:true},
-    name: { type: String, required: true },
-    code: { type: String, required: true },
-    company : { type: String, required: true },
-    email : {type: String, required: true}
+    name: { type: String, unique: true, required: true },
+    code: { type: String, unique: true, required: true },
+    company: { type: String, required: true },
+    email: {
+      type: String,
+      required: true,
+      validate: [emailValidator, 'email provided is not in correct format']
+    }
   },
-  { collection: "clients" }
+  { collection: 'clients' }
 );
 
-const Client = mongoose.model("Client", clientSchema);
+function emailValidator(value) {
+  return /^\S+@\S+\.\S+$/.test(value);
+}
 
-module.exports = Client;
+const Client = mongoose.model('Client', clientSchema);
+
+module.exports = { Client, clientSchema };

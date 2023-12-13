@@ -1,4 +1,4 @@
-const Product = require('../models/Product.js');
+const { Product } = require('../models/Product.js');
 
 class ProductOps {
   ProductOps() {}
@@ -9,6 +9,9 @@ class ProductOps {
   }
 
   async getProductById(id) {
+    if (!id || id === undefined || id === '') {
+      return null;
+    }
     const product = await Product.findById(id);
     return product;
   }
@@ -47,6 +50,16 @@ class ProductOps {
       product[key] = formData[key];
     }
 
+    //validate object before saving to database
+    const error = await product.validateSync();
+    if (error) {
+      const response = {
+        obj: product,
+        errorMsg: error.message
+      };
+      return response;
+    }
+    //validation passed, save to db
     const result = await product.save();
     const response = {
       obj: result,

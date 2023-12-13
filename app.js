@@ -5,6 +5,8 @@ const path = require('path');
 const indexRouter = require('./routers/indexRouter');
 const productRouter = require('./routers/productRouter');
 const clientRouter = require('./routers/clientRouter');
+const invoiceRouter = require('./routers/invoiceRouter');
+
 const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
 const { mongoose } = require('mongoose');
@@ -16,15 +18,18 @@ const port = process.env.PORT || 3003;
 
 //set up database
 // const uri = process.env.MONGO_CONNECTION_STRING;
-const uri = "mongodb+srv://admin:Alex-Ayesha-Eunice-Samaneh@billing.oa900xm.mongodb.net/billing?retryWrites=true&w=majority";
+const uri =
+  'mongodb+srv://admin:Alex-Ayesha-Eunice-Samaneh@billing.oa900xm.mongodb.net/billing?retryWrites=true&w=majority';
 mongoose.connect(uri);
 const db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-//set request body to be parsed in json format
-app.use(bodyParser());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 //tell Express where to find our templates (views) and set the view engine to ejs
 app.set('views', path.join(__dirname, 'views'));
@@ -44,6 +49,7 @@ app.set('layout', './layouts/full-width');
 app.use('/', indexRouter);
 app.use('/products', productRouter);
 app.use('/clients', clientRouter);
+app.use('/invoices', invoiceRouter);
 
 //the catch all error page
 app.all('/*', (req, res) => {
